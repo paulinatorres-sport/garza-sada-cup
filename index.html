@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Registro de equipos · Garza Sada Cup AD2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#1F4E8C; --blue-2:#163a6b; --gold:#E8A317; --gold-soft:#fff4dc;
+  --bg:#f4f5f8; --card:#ffffff; --ink:#18202e; --muted:#5e6778; --line:#dde2ea;
+  --ok:#1f8a5b; --ok-soft:#e5f5ed; --err:#c2362b; --err-soft:#fcebea; --field:#f8f9fb;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow","Segoe UI",Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --blue:#6f9be0; --blue-2:#9bbcf0; --gold:#f2b63d; --gold-soft:#3a2f16;
+    --bg:#10141c; --card:#181e2a; --ink:#e8ecf3; --muted:#9aa4b6; --line:#2b3446;
+    --ok:#4cc28a; --ok-soft:#15302a; --err:#ff7a6e; --err-soft:#3a1c1b; --field:#1e2533;
+  }
+}
+:root[data-theme="dark"]{
+  --blue:#6f9be0; --blue-2:#9bbcf0; --gold:#f2b63d; --gold-soft:#3a2f16;
+  --bg:#10141c; --card:#181e2a; --ink:#e8ecf3; --muted:#9aa4b6; --line:#2b3446;
+  --ok:#4cc28a; --ok-soft:#15302a; --err:#ff7a6e; --err-soft:#3a1c1b; --field:#1e2533;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:980px;margin:0 auto;padding:0 18px 140px}
+
+/* Hero */
+.hero{background:var(--blue);color:#fff;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -10% -60px -10%;height:120px;background:repeating-linear-gradient(90deg,transparent 0 38px,rgba(255,255,255,.07) 38px 40px);transform:skewY(-3deg)}
+.hero .wrap{padding:34px 18px 42px;position:relative;z-index:1}
+.hero .org{font-size:14px;opacity:.85;letter-spacing:.02em}
+.hero h1{font-family:var(--display);font-weight:800;font-size:clamp(38px,7vw,64px);line-height:.95;margin:10px 0 8px;letter-spacing:-.01em}
+.hero p{margin:0;max-width:60ch;opacity:.92}
+.hero .strip{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.hero .chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:4px 12px;font-size:14px}
+.hero .chip b{color:#ffd57a}
+
+/* Tabs */
+.tabs{display:flex;gap:6px;margin:-22px 0 18px;position:relative;z-index:2}
+.tab{background:var(--card);border:1px solid var(--line);border-radius:10px 10px 0 0;padding:10px 16px;cursor:pointer;font-weight:600;color:var(--muted)}
+.tab[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--card);box-shadow:0 -3px 0 var(--gold) inset}
+.hidden{display:none!important}
+
+/* Steps */
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:16px;overflow:hidden}
+.step-h{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--line)}
+.step-n{font-family:var(--display);font-weight:800;font-size:30px;line-height:1;color:var(--gold);min-width:26px}
+.step-h h2{font-family:var(--display);font-weight:700;font-size:24px;margin:0;line-height:1.1}
+.step-h small{display:block;color:var(--muted);font-size:14px;font-family:var(--body)}
+.step-b{padding:18px 20px}
+.step.locked{opacity:.5;pointer-events:none}
+
+/* Discipline cards */
+.disc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.disc{border:1.5px solid var(--line);background:var(--field);border-radius:12px;padding:12px 14px;cursor:pointer;text-align:left;transition:border-color .15s,background .15s}
+.disc:hover{border-color:var(--blue)}
+.disc[aria-pressed="true"]{border-color:var(--blue);background:var(--card);box-shadow:0 0 0 3px color-mix(in srgb,var(--blue) 18%,transparent)}
+.disc .dn{font-family:var(--display);font-weight:700;font-size:20px;line-height:1.1}
+.disc .dm{font-size:13px;color:var(--muted);margin-top:4px}
+
+/* Fields */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px 14px}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:14px;font-weight:600}
+label.f span.h{font-weight:400;color:var(--muted);font-size:13px}
+input[type=text],input[type=email],input[type=tel],select,textarea{background:var(--field);border:1.5px solid var(--line);border-radius:9px;padding:9px 11px;width:100%;min-width:0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue);background:var(--card)}
+input.bad{border-color:var(--err);background:var(--err-soft)}
+
+/* Roster */
+.roster-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:12px}
+.counter{font-family:var(--display);font-size:22px;font-weight:700}
+.counter .of{color:var(--muted);font-weight:600}
+.pill{display:inline-block;font-size:13px;padding:3px 10px;border-radius:999px;background:var(--field);border:1px solid var(--line);margin-left:6px;font-family:var(--body);font-weight:600;vertical-align:middle}
+.pill.ok{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.pill.err{background:var(--err-soft);border-color:transparent;color:var(--err)}
+.btn{border:0;border-radius:9px;padding:9px 14px;font-weight:600;cursor:pointer;background:var(--field);border:1.5px solid var(--line)}
+.btn:hover{border-color:var(--blue)}
+.btn.primary{background:var(--blue);color:#fff;border-color:var(--blue)}
+.btn.gold{background:var(--gold);color:#1b1405;border-color:var(--gold)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.ghost{background:transparent}
+.roster-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table.roster{border-collapse:collapse;width:100%;min-width:600px}
+table.roster th{font-size:13px;text-align:left;color:var(--muted);font-weight:600;padding:8px 8px;background:var(--field);border-bottom:1px solid var(--line)}
+table.roster td{padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.roster tr:last-child td{border-bottom:0}
+table.roster td.num{width:34px;text-align:center;font-family:var(--display);font-weight:700;color:var(--muted)}
+table.roster tr.cap td{background:var(--gold-soft)}
+table.roster tr.cap td.num{color:var(--gold)}
+table.roster input,table.roster select{padding:7px 9px;border-radius:7px}
+.seg{display:inline-flex;border:1.5px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{border:0;background:var(--field);padding:6px 10px;cursor:pointer;font-weight:600;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--blue);color:#fff}
+.ip-wrap{display:flex;gap:6px;align-items:center}
+.ip-wrap input{max-width:150px}
+.x{border:0;background:transparent;color:var(--muted);cursor:pointer;font-size:18px;line-height:1;padding:4px 6px;border-radius:6px}
+.x:hover{color:var(--err);background:var(--err-soft)}
+.paste{margin-top:12px;border:1.5px dashed var(--line);border-radius:10px;padding:12px 14px}
+.paste summary{cursor:pointer;font-weight:600;color:var(--blue)}
+.paste textarea{margin-top:10px;min-height:110px;font-family:ui-monospace,Consolas,monospace;font-size:13px}
+.note{font-size:13px;color:var(--muted);margin:8px 0 0}
+
+/* Checks */
+.check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.check:last-child{border-bottom:0}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--blue);flex:none}
+
+/* Sticky bar */
+.bar{background:var(--card);border:2px solid var(--blue);border-radius:14px;margin-bottom:16px}
+.bar .wrap{padding:16px 20px;display:flex;align-items:center;gap:14px;justify-content:space-between;max-width:none}
+.bar .status{font-size:14px;color:var(--muted);min-width:0}
+.bar .status b{color:var(--ink)}
+.bar .status ul{margin:4px 0 0;padding-left:18px;color:var(--err)}
+.bar .btn{white-space:nowrap;padding:12px 20px;font-size:16px}
+
+/* Banners / results */
+.banner{border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:14px;border-left:4px solid var(--gold);background:var(--gold-soft)}
+.banner.err{border-color:var(--err);background:var(--err-soft)}
+.done{text-align:center;padding:40px 20px}
+.done .big{font-family:var(--display);font-weight:800;font-size:44px;color:var(--ok);line-height:1}
+.folio{font-family:var(--display);font-size:28px;font-weight:700;letter-spacing:.06em;color:var(--blue)}
+.mine{margin-top:6px}
+.mine li{margin:4px 0}
+
+/* Admin */
+.admin-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.stat .v{font-family:var(--display);font-weight:800;font-size:28px;line-height:1;color:var(--blue)}
+.stat .l{font-size:13px;color:var(--muted)}
+.team{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+.team summary{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:12px 14px;cursor:pointer;list-style:none}
+.team summary::-webkit-details-marker{display:none}
+.team .tn{font-family:var(--display);font-weight:700;font-size:20px}
+.team .td{color:var(--muted);font-size:14px}
+.team .tb{padding:0 14px 14px}
+.team table{border-collapse:collapse;width:100%;font-size:14px}
+.team th,.team td{text-align:left;padding:5px 6px;border-bottom:1px solid var(--line)}
+.team-scroll{overflow-x:auto}
+.cfg{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:16px}
+.cfg h3{margin:0 0 10px;font-family:var(--display);font-size:22px}
+.switch{display:flex;align-items:center;gap:8px;font-weight:600}
+.switch input{width:20px;height:20px;accent-color:var(--ok)}
+.warn{color:var(--err);font-weight:600}
+@media (max-width:640px){
+  .bar .wrap{flex-direction:column;align-items:stretch}
+  .bar .btn{width:100%}
+  .step-b{padding:14px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="org" id="orgLine">Coordinación de Atlético y Deportivo · PrepaTec</div>
+    <h1>Registro de equipos<br>Garza Sada Cup AD2026</h1>
+    <p>Registra a tu equipo en unos minutos. El capitán o capitana llena el formulario una sola vez por equipo; los campeones representan a la Prepa en la Champions League.</p>
+    <div class="strip" id="heroChips"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- ===== FORM ===== -->
+  <section id="view-form" style="padding-top:22px">
+    <div id="banner"></div>
+
+    <div id="formArea">
+      <!-- Step 1 -->
+      <div class="step" id="s1">
+        <div class="step-h"><div class="step-n">1</div><div><h2>Disciplina</h2><small>Elige el deporte en el que se inscribe tu equipo</small></div></div>
+        <div class="step-b">
+          <div class="disc-grid" id="discGrid"></div>
+          <div class="grid" style="margin-top:14px" id="teamNameRow">
+            <label class="f">Nombre del equipo<input type="text" id="teamName" maxlength="30" autocomplete="off" placeholder="Ej. Los Invencibles"></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step locked" id="s2">
+        <div class="step-h"><div class="step-n">2</div><div><h2 id="capTitle">Capitán o capitana</h2><small id="capSub">Queda registrado como integrante 1 y será el contacto del equipo</small></div></div>
+        <div class="step-b">
+          <div class="grid">
+            <label class="f">Nombre completo<input type="text" id="c_nombre" autocomplete="name"></label>
+            <label class="f">Matrícula<input type="text" id="c_mat" placeholder="A0XXXXXXX" maxlength="9" autocomplete="off"></label>
+            <label class="f">Celular<input type="tel" id="c_tel" placeholder="10 dígitos" maxlength="10" inputmode="numeric" autocomplete="tel"></label>
+            <label class="f">¿Juegas en un equipo interprepa o selección local?<div class="ip-wrap"><div class="seg" id="c_ip"><button type="button" data-v="0" aria-pressed="true">No</button><button type="button" data-v="1" aria-pressed="false">Sí</button></div><input type="text" id="c_ipcual" class="hidden" placeholder="¿Cuál?"></div></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step locked" id="s3">
+        <div class="step-h"><div class="step-n">3</div><div><h2>Integrantes</h2><small>Una fila por integrante. Enter te lleva a la siguiente fila.</small></div></div>
+        <div class="step-b">
+          <div class="roster-tools">
+            <div class="counter"><span id="cnt">1</span> <span class="of">/ <span id="cntMax">10</span> integrantes</span><span id="cntPill" class="pill"></span><span id="ipPill" class="pill"></span><span id="genPill" class="pill hidden"></span></div>
+            <button class="btn" id="addRow" type="button">+ Agregar fila</button>
+          </div>
+          <div class="roster-scroll">
+            <table class="roster">
+              <thead><tr id="rosterHead"></tr></thead>
+              <tbody id="rosterBody"></tbody>
+            </table>
+          </div>
+          <details class="paste" id="pasteBox">
+            <summary>¿Tienes la lista en Excel? Pégala aquí y se llenan las filas</summary>
+            <p class="note" id="pasteHelp">Copia las columnas en este orden: Nombre · Matrícula. Una persona por renglón.</p>
+            <textarea id="pasteArea" placeholder="Ana López Garza	A01234567"></textarea>
+            <div style="margin-top:8px;display:flex;gap:8px"><button class="btn primary" id="pasteBtn" type="button">Llenar filas</button><span class="note" id="pasteMsg"></span></div>
+          </details>
+          <p class="note">La fila C es el capitán o capitana (sus datos se llenan en la sección 2).</p>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step locked" id="s4">
+        <div class="step-h"><div class="step-n">4</div><div><h2>Confirmación</h2><small>Marca las tres declaraciones para poder enviar</small></div></div>
+        <div class="step-b">
+          <label class="check"><input type="checkbox" class="decl"><span>Ningún integrante tiene beca deportiva, está registrado en CONADEIP ni pertenece a una Selección Nacional.</span></label>
+          <label class="check"><input type="checkbox" class="decl"><span>El equipo respeta el cupo máximo de jugadores interprepa o selección local de la disciplina.</span></label>
+          <label class="check"><input type="checkbox" class="decl"><span>Leí y acepto las bases de la Garza Sada Cup y, si somos campeones, nos comprometemos a representar a la Prepa en la Champions League.</span></label>
+          <label class="f" style="margin-top:12px">Comentarios (opcional)<textarea id="coment" rows="2"></textarea></label>
+        </div>
+      </div>
+    </div>
+
+    <div class="bar" id="bar">
+  <div class="wrap">
+    <div class="status" id="status"><b>Elige una disciplina para empezar.</b></div>
+    <button class="btn primary" id="submitBtn" type="button" disabled>Enviar registro</button>
+  </div>
+</div>
+
+    <div id="doneArea" class="hidden"></div>
+
+  </section>
+
+</main>
+
+
+<script>
+(function(){
+"use strict";
+const DISC = [
+  {id:"f7v", n:"Fútbol 7 Varonil",        rama:"H", min:7, max:10, ip:6},
+  {id:"f7f", n:"Fútbol 7 Femenil",        rama:"M", min:7, max:10, ip:6},
+  {id:"vbm", n:"Voleibol Mixto",          rama:"X", min:6, max:8,  ip:5, ipH:2, ipM:3, minH:3, minM:3},
+  {id:"b5v", n:"Basquetbol 5 Varonil",    rama:"H", min:5, max:8,  ip:4},
+  {id:"b3f", n:"Basquetbol 3x3 Femenil",  rama:"M", min:3, max:5,  ip:2},
+  {id:"tbv", n:"Tochito Varonil", rama:"H", min:5, max:8, ip:4},
+  {id:"tbf", n:"Tochito Femenil", rama:"M", min:5, max:8, ip:4},
+  {id:"tmv", n:"Tenis de Mesa Varonil",   rama:"H", min:1, max:1,  ip:0, indiv:true},
+  {id:"tmf", n:"Tenis de Mesa Femenil",   rama:"M", min:1, max:1,  ip:0, indiv:true}
+];
+const byId = Object.fromEntries(DISC.map(d=>[d.id,d]));
+const MAT_RE = /^A0\d{7}$/;
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+/* =====================================================================
+   CONFIGURACIÓN — edita solo estas líneas
+   SCRIPT_URL: la URL de tu Aplicación web de Google Apps Script (termina en /exec)
+   ===================================================================== */
+const CONFIG = {
+  SCRIPT_URL: "https://script.google.com/macros/s/AKfycbxD-m-ngK6MKZqh14ToJb6MBnMq0hr5vmODON1tDoTA5NCkraBKr9RhaFrR7oeTHAjMng/exec",
+  campus:   "",      // Ej. "PrepaTec Eugenio Garza Sada"
+  cierre:   "",      // Ej. "viernes 9 de octubre, 18:00"
+  contacto: "",      // Ej. "deportes@tec.mx · Oficina de Deportes"
+  abierto:  true     // cambia a false para cerrar el registro
+};
+const config = CONFIG;
+const scriptReady = /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(CONFIG.SCRIPT_URL.trim());
+let disc = null;
+let rows = [];            // {nombre, mat, sem, gen, talla, ip, ipcual}
+let cap = {gen:"", ip:false};
+let submitting = false;
+
+/* ---------- helpers ---------- */
+function el(tag, attrs={}, ...kids){
+  const e=document.createElement(tag);
+  for(const [k,v] of Object.entries(attrs)){
+    if(k==="class") e.className=v; else if(k==="text") e.textContent=v;
+    else if(k.startsWith("on")) e.addEventListener(k.slice(2),v);
+    else if(v!==false && v!=null) e.setAttribute(k,v===true?"":v);
+  }
+  kids.flat().forEach(c=>{ if(c!=null) e.append(c.nodeType?c:document.createTextNode(c)); });
+  return e;
+}
+const clean = s => (s||"").replace(/\s+/g," ").trim();
+const upMat = s => (s||"").toUpperCase().replace(/\s/g,"");
+function folio(){ const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let s=""; for(let i=0;i<6;i++) s+=c[Math.floor(Math.random()*c.length)]; return s; }
+
+/* ---------- hero & config ---------- */
+function renderHero(){
+  $("#orgLine").textContent = "Coordinación de Atlético y Deportivo · " + (config.campus || "PrepaTec");
+  const chips = $("#heroChips"); chips.replaceChildren();
+  chips.append(el("span",{class:"chip"}, config.abierto ? "Registro " : "Registro ", el("b",{text: config.abierto ? "abierto" : "cerrado"})));
+  if(config.cierre) chips.append(el("span",{class:"chip"},"Cierre: ", el("b",{text:config.cierre})));
+  if(config.contacto) chips.append(el("span",{class:"chip"},"Dudas: ", config.contacto));
+  if(!config.abierto){
+    $("#formArea").classList.add("hidden"); $("#bar").classList.add("hidden");
+    setBanner("El registro de equipos está cerrado. Si tienes dudas, contacta a la Coordinación de Atlético y Deportivo.", true);
+  } else if(!scriptReady){
+    setBanner("Configuración pendiente: falta pegar la URL de Google Apps Script en CONFIG.SCRIPT_URL. Sin ella los registros no se guardarían.", true);
+  } else setBanner("");
+}
+function setBanner(msg, err){
+  const b=$("#banner"); b.replaceChildren();
+  if(msg) b.append(el("div",{class:"banner"+(err?" err":""),text:msg}));
+}
+
+/* ---------- step 1 ---------- */
+function renderDisc(){
+  const g=$("#discGrid"); g.replaceChildren();
+  DISC.forEach(d=>{
+    const meta = d.indiv ? "Individual" : `${d.min} a ${d.max} integrantes · máx. ${d.ip} interprepa`;
+    g.append(el("button",{type:"button",class:"disc","aria-pressed":String(disc&&disc.id===d.id),onclick:()=>pickDisc(d.id)},
+      el("div",{class:"dn",text:d.n}), el("div",{class:"dm",text:meta})));
+  });
+}
+function pickDisc(id){
+  const prev = disc; disc = byId[id];
+  renderDisc();
+  $("#teamNameRow").classList.toggle("hidden", !!disc.indiv);
+  ["#s2","#s4"].forEach(s=>$(s).classList.remove("locked"));
+  $("#s3").classList.toggle("locked", false);
+  $("#s3").classList.toggle("hidden", !!disc.indiv);
+  $("#capTitle").textContent = disc.indiv ? "Datos del jugador o jugadora" : "Capitán o capitana";
+  $("#capSub").textContent = disc.indiv ? "Tenis de mesa es individual: solo registra tus datos" : "Queda registrado como integrante 1 y será el contacto del equipo";
+  if(disc.indiv){ rows=[]; }
+  else {
+    // keep typed rows, trim to max-1, pad to min-1
+    rows = rows.filter((r,i)=> i < disc.max-1 && (i < disc.min-1 || filled(r)));
+    while(rows.length < disc.min-1) rows.push(newRow());
+  }
+  renderRoster(); validate();
+  if(!prev) $( disc.indiv ? "#c_nombre" : "#teamName").focus({preventScroll:true});
+}
+
+/* ---------- step 2 (captain) ---------- */
+function bindSeg(id, onPick){
+  $(id).addEventListener("click",e=>{
+    const b=e.target.closest("button"); if(!b) return;
+    $(id).querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed", String(x===b)));
+    onPick(b.dataset.v);
+  });
+}
+bindSeg("#c_ip", v=>{cap.ip = v==="1"; $("#c_ipcual").classList.toggle("hidden",!cap.ip); if(cap.ip) $("#c_ipcual").focus(); if(disc&&!disc.indiv) renderRoster(); validate();});
+["#teamName","#c_nombre","#c_tel","#c_ipcual","#coment"].forEach(s=>$(s).addEventListener("input",validate));
+$("#c_mat").addEventListener("input",e=>{ const p=e.target.selectionStart; e.target.value=upMat(e.target.value); e.target.setSelectionRange(p,p); validate(); });
+$("#c_tel").addEventListener("input",e=>{ e.target.value=e.target.value.replace(/\D/g,"").slice(0,10); validate(); });
+$$(".decl").forEach(c=>c.addEventListener("change",validate));
+
+/* ---------- step 3 (roster) ---------- */
+function newRow(){ return {nombre:"",mat:"",sem:"",gen:disc&&disc.rama!=="X"?disc.rama:"",talla:"",ip:false,ipcual:""}; }
+const filled = r => !!(clean(r.nombre) || r.mat);
+
+function renderRoster(){
+  if(!disc || disc.indiv) return;
+  const mixed = disc.rama==="X";
+  const head=$("#rosterHead"); head.replaceChildren(...[
+    el("th",{text:"#"}), el("th",{text:"Nombre completo"}), el("th",{text:"Matrícula"}),
+    mixed ? el("th",{text:"Género"}) : null, el("th",{text:"Interprepa / selección"}), el("th",{})].filter(Boolean));
+  const body=$("#rosterBody"); body.replaceChildren();
+  // captain row (read-only mirror)
+  const capName = clean($("#c_nombre").value)||"(capitán)";
+  body.append(el("tr",{class:"cap"},
+    el("td",{class:"num",text:"C"}), el("td",{text:capName}), el("td",{text:upMat($("#c_mat").value)||"—"}),
+    mixed? el("td",{}, el("div",{class:"seg"},
+        el("button",{type:"button","aria-pressed":String(cap.gen==="M"),onclick:()=>{cap.gen="M";renderRoster();validate();},text:"M"}),
+        el("button",{type:"button","aria-pressed":String(cap.gen==="H"),onclick:()=>{cap.gen="H";renderRoster();validate();},text:"H"}))):null,
+    el("td",{text:cap.ip?"Sí":"No"}), el("td",{})));
+  rows.forEach((r,i)=>{
+    const tr=el("tr",{});
+    const nom=el("input",{type:"text",value:r.nombre,placeholder:"Nombre y apellidos","data-r":i,"data-k":"nombre",autocomplete:"off"});
+    const mat=el("input",{type:"text",value:r.mat,placeholder:"A0XXXXXXX",maxlength:"9","data-r":i,"data-k":"mat",autocomplete:"off",style:"width:120px"});
+    if(r.mat && !MAT_RE.test(r.mat)) mat.classList.add("bad");
+    let gen=null;
+    if(mixed){
+      gen=el("div",{class:"seg"},
+        el("button",{type:"button","aria-pressed":String(r.gen==="M"),onclick:()=>{r.gen="M";renderRoster();validate();},text:"M"}),
+        el("button",{type:"button","aria-pressed":String(r.gen==="H"),onclick:()=>{r.gen="H";renderRoster();validate();},text:"H"}));
+    }
+    const ipSeg=el("div",{class:"seg"},
+      el("button",{type:"button","aria-pressed":String(!r.ip),onclick:()=>{r.ip=false;renderRoster();validate();},text:"No"}),
+      el("button",{type:"button","aria-pressed":String(r.ip),onclick:()=>{r.ip=true;renderRoster();validate();const f=document.querySelector(`input[data-r="${i}"][data-k="ipcual"]`); f&&f.focus();},text:"Sí"}));
+    const ipCual = r.ip ? el("input",{type:"text",value:r.ipcual,placeholder:"¿Cuál?","data-r":i,"data-k":"ipcual"}) : null;
+    const del = el("button",{type:"button",class:"x",title:"Quitar fila","aria-label":"Quitar fila",onclick:()=>{ rows.splice(i,1); if(rows.length<disc.min-1) rows.push(newRow()); renderRoster(); validate(); },text:"×"});
+    tr.append(...[el("td",{class:"num",text:String(i+2)}), el("td",{},nom), el("td",{},mat), mixed?el("td",{},gen):null, el("td",{},el("div",{class:"ip-wrap"},ipSeg,ipCual)), el("td",{},del)].filter(Boolean));
+    body.append(tr);
+  });
+  $("#addRow").disabled = rows.length >= disc.max-1;
+  $("#cntMax").textContent = disc.max;
+  $("#pasteHelp").textContent = mixed
+    ? "Copia las columnas en este orden: Nombre · Matrícula · Género (M/H). Una persona por renglón."
+    : "Copia las columnas en este orden: Nombre · Matrícula. Una persona por renglón.";
+}
+
+$("#rosterBody").addEventListener("input",e=>{
+  const t=e.target; if(!t.dataset.k) return;
+  const r=rows[+t.dataset.r]; const k=t.dataset.k;
+  if(k==="mat"){ const p=t.selectionStart; t.value=upMat(t.value); t.setSelectionRange(p,p); t.classList.toggle("bad", t.value.length>0 && !MAT_RE.test(t.value) && t.value.length>=9); }
+  r[k]=t.value;
+  validate();
+});
+$("#rosterBody").addEventListener("change",e=>{
+  const t=e.target; if(t.tagName!=="SELECT") return;
+  const r=rows[+t.dataset.r]; r[t.dataset.k]=t.value;
+  validate();
+});
+$("#rosterBody").addEventListener("focusout",e=>{ if(e.target.dataset.k==="mat") e.target.classList.toggle("bad", e.target.value.length>0 && !MAT_RE.test(e.target.value)); });
+$("#rosterBody").addEventListener("keydown",e=>{
+  if(e.key!=="Enter" || e.target.tagName!=="INPUT") return;
+  e.preventDefault();
+  const i=+e.target.dataset.r, k=e.target.dataset.k;
+  if(k==="nombre"){ const m=document.querySelector(`input[data-r="${i}"][data-k="mat"]`); m&&m.focus(); return; }
+  let next=i+1;
+  if(next>=rows.length){ if(rows.length < disc.max-1){ rows.push(newRow()); renderRoster(); validate(); } else return; }
+  const n=document.querySelector(`input[data-r="${next}"][data-k="nombre"]`); n&&n.focus();
+});
+$("#addRow").addEventListener("click",()=>{
+  if(rows.length>=disc.max-1) return;
+  rows.push(newRow()); renderRoster(); validate();
+  const n=document.querySelector(`input[data-r="${rows.length-1}"][data-k="nombre"]`); n&&n.focus();
+});
+["#c_nombre","#c_mat"].forEach(s=>$(s).addEventListener("input",()=>{ if(disc&&!disc.indiv) renderCapRowOnly(); }));
+function renderCapRowOnly(){
+  const tr=$("#rosterBody tr.cap"); if(!tr) return;
+  tr.children[1].textContent = clean($("#c_nombre").value)||"(capitán)";
+  tr.children[2].textContent = upMat($("#c_mat").value)||"—";
+}
+
+/* paste from Excel */
+$("#pasteBtn").addEventListener("click",()=>{
+  if(!disc) return;
+  const mixed = disc.rama==="X";
+  const lines=$("#pasteArea").value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  const parsed=[];
+  lines.forEach(l=>{
+    const c = (l.includes("\t")? l.split("\t") : l.split(/[,;]/)).map(x=>x.trim());
+    if(/nombre/i.test(c[0]||"") && /matr/i.test(c[1]||"")) return; // header
+    const r=newRow(); r.nombre=clean(c[0]); r.mat=upMat(c[1]);
+    if(mixed){ const g=(c[2]||"").toUpperCase(); if(g.startsWith("M")||g.startsWith("F")) r.gen="M"; else if(g.startsWith("H")||g.startsWith("V")) r.gen="H"; }
+    if(filled(r)) parsed.push(r);
+  });
+  const keep = rows.filter(filled);
+  let merged = keep.concat(parsed);
+  const over = Math.max(0, merged.length-(disc.max-1));
+  merged = merged.slice(0, disc.max-1);
+  while(merged.length < disc.min-1) merged.push(newRow());
+  rows = merged;
+  renderRoster(); validate();
+  $("#pasteMsg").textContent = `${parsed.length-over} integrante(s) agregados` + (over? ` · ${over} no cupieron (máximo ${disc.max} con capitán)`:"");
+  $("#pasteArea").value="";
+});
+
+/* ---------- validation ---------- */
+function collect(){
+  const members = [];
+  const c = {nombre:clean($("#c_nombre").value), mat:upMat($("#c_mat").value), sem:"",
+    gen: disc ? (disc.rama==="X" ? cap.gen : disc.rama) : "", talla:"", ip:cap.ip, ipcual:clean($("#c_ipcual").value), capitan:true};
+  members.push(c);
+  if(disc && !disc.indiv) rows.filter(filled).forEach(r=>members.push({nombre:clean(r.nombre),mat:upMat(r.mat),sem:r.sem,gen:disc.rama==="X"?r.gen:disc.rama,talla:r.talla,ip:!!r.ip,ipcual:clean(r.ipcual),capitan:false}));
+  return members;
+}
+function validate(){
+  const issues=[];
+  if(!disc){ updateBar(["Elige una disciplina"]); return issues; }
+  const m=collect(), c=m[0];
+  if(!disc.indiv && !clean($("#teamName").value)) issues.push("Nombre del equipo");
+  if(!c.nombre) issues.push("Nombre del capitán");
+  if(!MAT_RE.test(c.mat)) issues.push("Matrícula del capitán (A0 + 7 dígitos)");
+  if(!/^\d{10}$/.test($("#c_tel").value)) issues.push("Celular de 10 dígitos");
+  if(disc.rama==="X" && !c.gen) issues.push("Género del capitán (fila C)");
+  if(c.ip && !c.ipcual) issues.push("Interprepa del capitán: ¿cuál?");
+  let incomplete=0, badMat=0, noGen=0, noIpC=0;
+  m.slice(1).forEach(r=>{ if(!r.nombre) incomplete++; if(!MAT_RE.test(r.mat)) badMat++; if(disc.rama==="X"&&!r.gen) noGen++; if(r.ip&&!r.ipcual) noIpC++; });
+  if(incomplete) issues.push(`${incomplete} fila(s) sin nombre`);
+  if(badMat) issues.push(`${badMat} matrícula(s) inválidas`);
+  if(noGen) issues.push(`${noGen} fila(s) sin género`);
+  if(noIpC) issues.push(`${noIpC} interprepa sin especificar`);
+  const mats=m.map(x=>x.mat).filter(Boolean); const dup=mats.filter((x,i)=>mats.indexOf(x)!==i);
+  if(dup.length) issues.push("Matrícula repetida: "+[...new Set(dup)].join(", "));
+  const total=m.length, ipN=m.filter(x=>x.ip).length;
+  if(!disc.indiv){
+    if(total<disc.min) issues.push(`Mínimo ${disc.min} integrantes (llevas ${total})`);
+    if(total>disc.max) issues.push(`Máximo ${disc.max} integrantes`);
+  }
+  if(ipN>disc.ip) issues.push(disc.ip===0 ? "Tenis de mesa no admite jugadores interprepa" : `Máximo ${disc.ip} jugadores interprepa (llevas ${ipN})`);
+  let nH=0,nM=0,ipH=0,ipM=0;
+  if(disc.rama==="X"){
+    m.forEach(x=>{ if(x.gen==="H"){nH++; if(x.ip) ipH++;} if(x.gen==="M"){nM++; if(x.ip) ipM++;} });
+    if(nM<disc.minM) issues.push(`Mínimo ${disc.minM} mujeres (llevas ${nM})`);
+    if(nH<disc.minH) issues.push(`Mínimo ${disc.minH} hombres (llevas ${nH})`);
+    if(ipH>disc.ipH) issues.push(`Máximo ${disc.ipH} hombres interprepa`);
+    if(ipM>disc.ipM) issues.push(`Máximo ${disc.ipM} mujeres interprepa`);
+  }
+  if($$(".decl").some(x=>!x.checked)) issues.push("Marcar las 3 declaraciones");
+  // counter pills
+  if(!disc.indiv){
+    $("#cnt").textContent=total;
+    const cp=$("#cntPill"); const okC=total>=disc.min&&total<=disc.max;
+    cp.className="pill "+(okC?"ok":"err"); cp.textContent= okC? "Completo" : `Faltan ${disc.min-total}`;
+    const ipp=$("#ipPill"); ipp.className="pill "+(ipN<=disc.ip?"ok":"err"); ipp.textContent=`Interprepa ${ipN}/${disc.ip}`;
+    const gp=$("#genPill");
+    if(disc.rama==="X"){ gp.classList.remove("hidden"); gp.className="pill "+(nM>=3&&nH>=3?"ok":"err"); gp.textContent=`${nM} M · ${nH} H`; } else gp.classList.add("hidden");
+  }
+  updateBar(issues);
+  return issues;
+}
+function updateBar(issues){
+  const s=$("#status"); s.replaceChildren();
+  const can = scriptReady && config.abierto;
+  if(!issues.length){
+    s.append(el("b",{text: can ? "Todo listo. Revisa y envía tu registro." : "Todo listo, pero falta configurar el destino de los registros."}));
+  } else {
+    s.append(el("b",{text:`Pendiente (${issues.length}):`}), el("ul",{}, issues.slice(0,6).map(t=>el("li",{text:t}))));
+  }
+  $("#submitBtn").disabled = !!issues.length || !can || submitting;
+}
+
+/* ---------- submit ---------- */
+$("#submitBtn").addEventListener("click", async ()=>{
+  if(validate().length || !scriptReady) return;
+  submitting=true; $("#submitBtn").textContent="Enviando…"; updateBar([]);
+  const m=collect();
+  const rec = {
+    folio: folio(), disciplina: disc.id, disciplinaNombre: disc.n,
+    equipo: disc.indiv ? m[0].nombre : clean($("#teamName").value),
+    capitan: {nombre:m[0].nombre, mat:m[0].mat, celular:$("#c_tel").value},
+    integrantes: m, total: m.length, interprepa: m.filter(x=>x.ip).length,
+    comentarios: clean($("#coment").value), creado: new Date().toISOString()
+  };
+  try{
+    await fetch(CONFIG.SCRIPT_URL.trim(), {method:"POST", mode:"no-cors", headers:{"Content-Type":"text/plain;charset=utf-8"}, body: JSON.stringify(rec)});
+    showDone(rec);
+  }catch(err){
+    setBanner("No se pudo enviar el registro. Revisa tu conexión a internet e intenta de nuevo.", true);
+    window.scrollTo({top:0,behavior:"smooth"});
+  }finally{
+    submitting=false; $("#submitBtn").textContent="Enviar registro"; validate();
+  }
+});
+function showDone(rec){
+  $("#formArea").classList.add("hidden"); $("#bar").classList.add("hidden");
+  const d=$("#doneArea"); d.classList.remove("hidden"); d.replaceChildren(
+    el("div",{class:"step"}, el("div",{class:"done"},
+      el("div",{class:"big",text:"¡Registro enviado!"}),
+      el("p",{text:`${rec.equipo} · ${rec.disciplinaNombre} · ${rec.total} integrante(s)`}),
+      el("p",{},"Tu folio es ", el("span",{class:"folio",text:rec.folio})),
+      el("p",{class:"note",text:"La Coordinación validará a los integrantes contra las listas oficiales y te contactará al celular registrado. Guarda tu folio."}),
+      el("button",{class:"btn primary",type:"button",onclick:resetForm,text:"Registrar otro equipo"}))));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function resetForm(){
+  disc=null; rows=[]; cap={gen:"",ip:false};
+  ["#teamName","#c_nombre","#c_mat","#c_tel","#c_ipcual","#coment"].forEach(s=>{$(s).value="";});
+  $$("#c_ip button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v==="0")));
+  $("#c_ipcual").classList.add("hidden");
+  $$(".decl").forEach(c=>c.checked=false);
+  ["#s2","#s3","#s4"].forEach(s=>{$(s).classList.add("locked");$(s).classList.remove("hidden");});
+  $("#doneArea").classList.add("hidden"); $("#formArea").classList.remove("hidden"); $("#bar").classList.remove("hidden");
+  $("#rosterBody").replaceChildren(); $("#rosterHead").replaceChildren();
+  renderDisc(); validate(); window.scrollTo({top:0,behavior:"smooth"});
+}
+/* ---------- boot ---------- */
+renderDisc(); renderHero(); validate();
+
+})();
+</script>
+</body>
+</html>
